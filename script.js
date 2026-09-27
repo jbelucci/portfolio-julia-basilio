@@ -15,3 +15,5 @@ document.querySelector('#year').textContent = new Date().getFullYear();
 document.querySelectorAll('.contact-row a').forEach((link) => { link.textContent = link.textContent.replace(/\s*↗$/, ''); });
 const favicon = document.querySelector('link[rel="icon"]');
 if (favicon) favicon.setAttribute('href', 'assets/julia-logo.png');
+const opportunityCopy = document.querySelector('.closing-copy');
+if (opportunityCopy) opportunityCopy.innerHTML = 'Aberta a oportunidades <strong>100% remotas</strong> em Processos, Operações, Automação, Sistemas, Administrativo e Comercial.';
