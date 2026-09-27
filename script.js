@@ -1,7 +1,8 @@
 const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('.main-nav');
-menuButton?.addEventListener('click', () => { const open = nav.classList.toggle('open'); menuButton.setAttribute('aria-expanded', String(open)); });
-document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => { nav.classList.remove('open'); menuButton?.setAttribute('aria-expanded', 'false'); }));
+const setMenu = (open) => { nav?.classList.toggle('open', open); document.body.classList.toggle('menu-open', open); menuButton?.setAttribute('aria-expanded', String(open)); };
+menuButton?.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
 const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); }), { threshold: 0.14 });
 document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 const resumeContent = {
