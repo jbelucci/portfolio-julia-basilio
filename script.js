@@ -1,0 +1,19 @@
+const menuButton = document.querySelector('.menu-button');
+const nav = document.querySelector('.main-nav');
+menuButton?.addEventListener('click', () => { const open = nav.classList.toggle('open'); menuButton.setAttribute('aria-expanded', String(open)); });
+document.querySelectorAll('.main-nav a').forEach((link) => link.addEventListener('click', () => { nav.classList.remove('open'); menuButton?.setAttribute('aria-expanded', 'false'); }));
+const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); }), { threshold: 0.14 });
+document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+const resumeContent = {
+  perfil: { heading: 'Perfil profissional', lead: 'Analista com visão sistêmica, conectando processos, sistemas, dados e pessoas para construir soluções práticas.', leftTitle: 'FOCO', left: 'Processos<br>Operações<br>Sistemas & ERP<br>Automação', rightTitle: 'INTERESSES', right: 'Qualidade<br>Requisitos<br>Dados & indicadores<br>Melhoria contínua', foot: 'Aberta a oportunidades remotas em áreas de processos, sistemas, operações, qualidade, administração e comercial.' },
+  habilidades: { heading: 'Habilidades que conectam', lead: 'Minha atuação reúne análise, organização e comunicação para fazer a ponte entre uma necessidade e uma solução viável.', leftTitle: 'ANÁLISE', left: 'Processos e gargalos<br>Regras de negócio<br>Dados e indicadores<br>Resolução de problemas', rightTitle: 'OPERAÇÃO', right: 'Automação & IA<br>Rotinas administrativas<br>Documentação<br>Integração entre áreas', foot: 'Facilidade para aprender novos contextos, estruturar informações e transformar complexidade em ações objetivas.' },
+  comercial: { heading: 'Visão comercial e de negócio', lead: 'Três anos em contato com contextos e clientes diversos desenvolveram minha capacidade de escutar, investigar e identificar o que gera valor.', leftTitle: 'NA PRÁTICA', left: 'Entendimento de contexto<br>Comunicação adaptável<br>Levantamento de necessidades<br>Prioridades e oportunidades', rightTitle: 'VISÃO INTEGRADA', right: 'Comercial<br>Financeiro<br>Atendimento<br>Operações e sistemas', foot: 'Um olhar que considera a necessidade do cliente, o processo interno e o impacto da decisão para o negócio.' }
+};
+const paper = document.querySelector('#resume-paper');
+document.querySelectorAll('.resume-tab').forEach((button) => button.addEventListener('click', () => { const data = resumeContent[button.dataset.resume]; document.querySelectorAll('.resume-tab').forEach((tab) => { tab.classList.toggle('active', tab === button); tab.setAttribute('aria-selected', String(tab === button)); }); paper.classList.remove('paper-change'); void paper.offsetWidth; paper.querySelector('h3').textContent = data.heading; paper.querySelector('.paper-lead').textContent = data.lead; const columns = paper.querySelectorAll('.paper-columns div'); columns[0].querySelector('span').textContent = data.leftTitle; columns[0].querySelector('p').innerHTML = data.left; columns[1].querySelector('span').textContent = data.rightTitle; columns[1].querySelector('p').innerHTML = data.right; paper.querySelector('.paper-foot').textContent = data.foot; paper.classList.add('paper-change'); }));
+document.querySelector('#year').textContent = new Date().getFullYear();
+document.querySelectorAll('.contact-row a').forEach((link) => { link.textContent = link.textContent.replace(/\s*↗$/, ''); });
+const resumeHeading = document.querySelector('.resume-intro h2');
+if (resumeHeading) resumeHeading.innerHTML = 'Minha trajetória,<br><em>na prática.</em>';
+const favicon = document.querySelector('link[rel="icon"]');
+if (favicon) favicon.setAttribute('href', 'assets/julia-logo.png');
