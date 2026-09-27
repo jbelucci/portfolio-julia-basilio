@@ -13,7 +13,5 @@ const paper = document.querySelector('#resume-paper');
 document.querySelectorAll('.resume-tab').forEach((button) => button.addEventListener('click', () => { const data = resumeContent[button.dataset.resume]; document.querySelectorAll('.resume-tab').forEach((tab) => { tab.classList.toggle('active', tab === button); tab.setAttribute('aria-selected', String(tab === button)); }); paper.classList.remove('paper-change'); void paper.offsetWidth; paper.querySelector('h3').textContent = data.heading; paper.querySelector('.paper-lead').textContent = data.lead; const columns = paper.querySelectorAll('.paper-columns div'); columns[0].querySelector('span').textContent = data.leftTitle; columns[0].querySelector('p').innerHTML = data.left; columns[1].querySelector('span').textContent = data.rightTitle; columns[1].querySelector('p').innerHTML = data.right; paper.querySelector('.paper-foot').textContent = data.foot; paper.classList.add('paper-change'); }));
 document.querySelector('#year').textContent = new Date().getFullYear();
 document.querySelectorAll('.contact-row a').forEach((link) => { link.textContent = link.textContent.replace(/\s*↗$/, ''); });
-const resumeHeading = document.querySelector('.resume-intro h2');
-if (resumeHeading) resumeHeading.innerHTML = 'Minha trajetória,<br><em>na prática.</em>';
 const favicon = document.querySelector('link[rel="icon"]');
 if (favicon) favicon.setAttribute('href', 'assets/julia-logo.png');
