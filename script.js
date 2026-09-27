@@ -17,3 +17,12 @@ const favicon = document.querySelector('link[rel="icon"]');
 if (favicon) favicon.setAttribute('href', 'assets/julia-logo.png');
 const opportunityCopy = document.querySelector('.closing-copy');
 if (opportunityCopy) opportunityCopy.innerHTML = 'Aberta a oportunidades <strong>100% remotas</strong> em Processos, Operações, Automação, Sistemas, Administrativo e Comercial.';
+const orviaProject = document.querySelector('.project-leadflow');
+if (orviaProject) {
+  orviaProject.querySelector('h3').innerHTML = 'ORVIA';
+  orviaProject.querySelector('.project-subtitle').textContent = 'Sales workspace';
+  orviaProject.querySelector('.project-copy > p:not(.project-subtitle)').textContent = 'Workspace comercial para acompanhar leads, pipeline, receita e performance da operação.';
+  orviaProject.querySelector('.button').innerHTML = 'Abrir workspace <span>↗</span>';
+  orviaProject.querySelector('.browser-top b').textContent = 'ORVIA · dashboard';
+  orviaProject.querySelector('.leadflow-art').setAttribute('aria-label', 'Demonstração visual do dashboard ORVIA');
+}

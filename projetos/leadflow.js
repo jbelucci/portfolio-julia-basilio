@@ -1,5 +1,120 @@
-const K='leadflow-demo-v1',S=['Novo','Contato','Qualificado','Proposta','Negociação','Ganho'],M=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}),cl=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-let base=[['Mariana Costa','Aurora Arquitetura','Júlia','Sistema de Gestão','Indicação','Negociação',4500,'2026-09-18'],['Gustavo Lima','Norte Solar','Camila','CRM Comercial','Google','Proposta',6800,'2026-09-15'],['Renata Alves','Ateliê Nuvem','Júlia','Portal do Cliente','Instagram','Contato',3200,'2026-09-14'],['Caio Mendes','Métrica Contábil','Rafael','Automação Financeira','Prospecção','Qualificado',5400,'2026-09-12'],['Patrícia Rocha','Casa Aroeira','Camila','Sistema de Gestão','WhatsApp','Novo',2400,'2026-09-11'],['Diego Santos','Elo Transportes','Rafael','Sistema de Gestão','Evento','Ganho',8900,'2026-09-09'],['Carla Freitas','Viva Odonto','Júlia','CRM Comercial','Site','Ganho',4200,'2026-09-08'],['Felipe Nunes','Brisa Foods','Camila','Automação Financeira','Google','Negociação',7200,'2026-09-06'],['Lívia Amaral','Estúdio Círculo','Júlia','Portal do Cliente','Instagram','Proposta',3900,'2026-09-04'],['Bruno Reis','Ação Log','Rafael','Sistema de Gestão','Indicação','Contato',6100,'2026-08-28'],['Ana Beatriz','Nexo Escola','Camila','CRM Comercial','WhatsApp','Qualificado',2800,'2026-08-25'],['Rafael Duarte','Plano Verde','Rafael','Automação Financeira','Prospecção','Perdido',5000,'2026-08-23'],['Juliana Melo','Café Duna','Júlia','CRM Comercial','Evento','Ganho',3600,'2026-08-19'],['Henrique Vilela','Axis Engenharia','Camila','Sistema de Gestão','Google','Novo',7900,'2026-08-17'],['Tainá Luz','Lumi Casa','Júlia','Portal do Cliente','Instagram','Contato',3300,'2026-08-14'],['Marcelo Vieira','Ponto Farma','Rafael','CRM Comercial','Indicação','Proposta',5800,'2026-08-10'],['Sofia Marques','Arco Legal','Camila','Sistema de Gestão','Site','Negociação',4400,'2026-08-08'],['Eduardo Silva','Terra Alta','Rafael','Automação Financeira','Google','Ganho',9700,'2026-08-04'],['Camila Azevedo','Nina Decor','Júlia','Sistema de Gestão','WhatsApp','Novo',3100,'2026-07-29'],['João Pedro','Giro Eventos','Camila','CRM Comercial','Evento','Perdido',4000,'2026-07-23'],['Natália Prado','Ciclo Tech','Rafael','Portal do Cliente','Prospecção','Qualificado',6500,'2026-07-18'],['Vitor Ramos','Ativa Saúde','Júlia','Automação Financeira','Indicação','Ganho',5600,'2026-07-11']].map((x,i)=>({id:i,...Object.fromEntries(['name','company','seller','product','origin','stage','value','date'].map((k,j)=>[k,x[j]]))}));let L=JSON.parse(localStorage.getItem(K)||'null')||base;
-function render(){let won=L.filter(x=>x.stage==='Ganho'),active=L.filter(x=>x.stage!=='Perdido'),rev=won.reduce((a,x)=>a+ +x.value,0),pipe=active.filter(x=>x.stage!=='Ganho').reduce((a,x)=>a+ +x.value,0),d=[['Leads ativos',active.length,'base atual'],['Conversão',(won.length/L.length*100).toFixed(1)+'%',won.length+' ganhos'],['Receita fechada',M(rev),'vendas ganhas'],['Pipeline aberto',M(pipe),'em curso'],['Ticket médio',M(rev/(won.length||1)),'por venda']];kpis.innerHTML=d.map(x=>`<article class=kpi><small>${x[0]}</small><b>${x[1]}</b><span>${x[2]}</span></article>`).join('');count.textContent=L.length;let mx=Math.max(...S.map(s=>L.filter(x=>x.stage===s).length));funnel.innerHTML=S.map(s=>{let n=L.filter(x=>x.stage===s).length;return`<div class=frow><span>${s}</span><div class=track><i style="width:${n/mx*100}%"></i></div><b>${n}</b></div>`}).join('');let ms=['Jul','Ago','Set'];bars.innerHTML=ms.map((m,i)=>{let n=won.filter(x=>new Date(x.date).getMonth()===i+6).reduce((a,x)=>a+ +x.value,0);return`<div class=bar><i style="height:${Math.max(18,n/100)}px"></i>${m}</div>`}).join('');let by=(k)=>[...new Set(L.map(x=>x[k]))].map(v=>[v,L.filter(x=>x[k]===v).length]),row=(a)=>{let mx=Math.max(...a.map(x=>x[1]));return a.sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>`<div class=orow><span>${x[0]}</span><div class=track><i style="width:${x[1]/mx*100}%"></i></div><b>${x[1]}</b></div>`).join('')};origins.innerHTML=row(by('origin'));let ss=['Júlia','Camila','Rafael'].map(v=>[v,won.filter(x=>x.seller===v).reduce((a,x)=>a+ +x.value,0)]);sellers.innerHTML=ss.map(x=>`<div class=srow><span>${x[0]}</span><div class=track><i style="width:${x[1]/Math.max(...ss.map(y=>y[1]),1)*100}%"></i></div><b>${M(x[1]).replace('R$ ','')}</b></div>`).join('');table()}
-function table(){let q=search.value.toLowerCase(),f=x=>(!q||x.name.toLowerCase().includes(q)||x.company.toLowerCase().includes(q))&&(!stage.value||x.stage===stage.value)&&(!seller.value||x.seller===seller.value)&&(!origin.value||x.origin===origin.value);rows.innerHTML=L.filter(f).sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr><td><b>${x.name}</b><small>${x.company}</small></td><td>${x.seller}</td><td>${x.product}</td><td>${x.origin}</td><td><span class="tag ${cl(x.stage)}">${x.stage}</span></td><td>${M(+x.value)}</td><td>${new Date(x.date+'T12:00').toLocaleDateString('pt-BR')}</td></tr>`).join('')}
-[['stage',[...S,'Perdido']],['seller',['Júlia','Camila','Rafael']],['origin',['Instagram','Google','Indicação','Prospecção','WhatsApp','Site','Evento']]].forEach(([id,a])=>document.getElementById(id).innerHTML+=a.map(x=>`<option>${x}</option>`).join(''));document.querySelectorAll('.filters input,.filters select').forEach(x=>x.oninput=table);document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-v],.view').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.v).classList.add('active');document.querySelector('#title').textContent={dash:'Visão geral',leads:'Leads',about:'Sobre o projeto'}[b.dataset.v]});const dlg=document.querySelector('#modal'),leadForm=document.querySelector('#form');document.querySelectorAll('.open').forEach(b=>b.addEventListener('click',()=>{leadForm.elements.date.value=new Date().toISOString().slice(0,10);dlg.showModal()}));document.querySelector('.close').addEventListener('click',()=>dlg.close());leadForm.addEventListener('submit',e=>{e.preventDefault();let x=Object.fromEntries(new FormData(leadForm));x.id=Date.now();x.value=+x.value;L.push(x);localStorage.setItem(K,JSON.stringify(L));render();dlg.close();toast.textContent=`${x.name} foi adicionado ao LeadFlow.`;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2800)});render();
+const storageKey = 'orvia-workspace-v1';
+const welcomeKey = 'orvia-welcome-v1';
+const stages = ['Novo', 'Contato', 'Qualificado', 'Proposta', 'Negociação', 'Ganho'];
+const sellers = ['Júlia', 'Camila', 'Rafael'];
+const origins = ['Instagram', 'Google', 'Indicação', 'Prospecção', 'WhatsApp', 'Site', 'Evento'];
+const money = value => Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+const plain = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+const seed = [
+  ['Mariana Costa','Aurora Arquitetura','Júlia','Sistema de Gestão','Indicação','Negociação',4500,'2026-09-18'],['Gustavo Lima','Norte Solar','Camila','CRM Comercial','Google','Proposta',6800,'2026-09-15'],['Renata Alves','Ateliê Nuvem','Júlia','Portal do Cliente','Instagram','Contato',3200,'2026-09-14'],['Caio Mendes','Métrica Contábil','Rafael','Automação Financeira','Prospecção','Qualificado',5400,'2026-09-12'],['Patrícia Rocha','Casa Aroeira','Camila','Sistema de Gestão','WhatsApp','Novo',2400,'2026-09-11'],['Diego Santos','Elo Transportes','Rafael','Sistema de Gestão','Evento','Ganho',8900,'2026-09-09'],['Carla Freitas','Viva Odonto','Júlia','CRM Comercial','Site','Ganho',4200,'2026-09-08'],['Felipe Nunes','Brisa Foods','Camila','Automação Financeira','Google','Negociação',7200,'2026-09-06'],['Lívia Amaral','Estúdio Círculo','Júlia','Portal do Cliente','Instagram','Proposta',3900,'2026-09-04'],['Bruno Reis','Ação Log','Rafael','Sistema de Gestão','Indicação','Contato',6100,'2026-08-28'],['Ana Beatriz','Nexo Escola','Camila','CRM Comercial','WhatsApp','Qualificado',2800,'2026-08-25'],['Rafael Duarte','Plano Verde','Rafael','Automação Financeira','Prospecção','Perdido',5000,'2026-08-23'],['Juliana Melo','Café Duna','Júlia','CRM Comercial','Evento','Ganho',3600,'2026-08-19'],['Henrique Vilela','Axis Engenharia','Camila','Sistema de Gestão','Google','Novo',7900,'2026-08-17'],['Tainá Luz','Lumi Casa','Júlia','Portal do Cliente','Instagram','Contato',3300,'2026-08-14'],['Marcelo Vieira','Ponto Farma','Rafael','CRM Comercial','Indicação','Proposta',5800,'2026-08-10'],['Sofia Marques','Arco Legal','Camila','Sistema de Gestão','Site','Negociação',4400,'2026-08-08'],['Eduardo Silva','Terra Alta','Rafael','Automação Financeira','Google','Ganho',9700,'2026-08-04'],['Camila Azevedo','Nina Decor','Júlia','Sistema de Gestão','WhatsApp','Novo',3100,'2026-07-29'],['João Pedro','Giro Eventos','Camila','CRM Comercial','Evento','Perdido',4000,'2026-07-23'],['Natália Prado','Ciclo Tech','Rafael','Portal do Cliente','Prospecção','Qualificado',6500,'2026-07-18'],['Vitor Ramos','Ativa Saúde','Júlia','Automação Financeira','Indicação','Ganho',5600,'2026-07-11']
+].map((entry, id) => Object.fromEntries(['name','company','seller','product','origin','stage','value','date'].map((key, index) => [key, entry[index]]).concat([['id', id]])));
+
+let leads = JSON.parse(localStorage.getItem(storageKey) || 'null') || seed;
+const $ = selector => document.querySelector(selector);
+
+function calc() {
+  const won = leads.filter(lead => lead.stage === 'Ganho');
+  const open = leads.filter(lead => !['Ganho', 'Perdido'].includes(lead.stage));
+  const active = leads.filter(lead => lead.stage !== 'Perdido');
+  const revenue = won.reduce((sum, lead) => sum + Number(lead.value), 0);
+  const pipeline = open.reduce((sum, lead) => sum + Number(lead.value), 0);
+  return { won, open, active, revenue, pipeline, ticket: revenue / (won.length || 1), conversion: (won.length / leads.length) * 100 };
+}
+
+function avatar(name) { return name.charAt(0); }
+function fill(width) { return `<span class="bar-fill" style="width:${Math.max(7, width)}%"></span>`; }
+
+function renderDashboard() {
+  const data = calc();
+  $('#lead-count').textContent = leads.length;
+  $('#overview').innerHTML = [
+    ['Receita fechada', money(data.revenue), `${data.won.length} negócios ganhos`, 'primary'],
+    ['Leads ativos', data.active.length, 'em acompanhamento', ''],
+    ['Conversão', `${data.conversion.toFixed(1)}%`, `${data.won.length} ganhos`, ''],
+    ['Pipeline', money(data.pipeline), 'negócios em curso', ''],
+    ['Ticket médio', money(data.ticket), 'por venda fechada', '']
+  ].map(([label, value, hint, type]) => `<article class="kpi ${type}"><small>${label}</small><strong>${value}</strong><span>${hint}</span></article>`).join('');
+
+  const stageCounts = stages.filter(stage => stage !== 'Ganho').map(stage => ({ stage, count: leads.filter(lead => lead.stage === stage).length }));
+  const maxStage = Math.max(...stageCounts.map(item => item.count), 1);
+  $('#pipeline-total').textContent = money(data.pipeline);
+  $('#pipeline-list').innerHTML = stageCounts.map(item => `<div class="pipeline-row"><label>${item.stage}</label><div class="bar-track">${fill(item.count / maxStage * 100)}</div><b>${item.count}</b></div>`).join('');
+
+  const sellerData = sellers.map(name => ({ name, closed: leads.filter(lead => lead.seller === name && lead.stage === 'Ganho').reduce((sum, lead) => sum + Number(lead.value), 0), active: leads.filter(lead => lead.seller === name && !['Ganho','Perdido'].includes(lead.stage)).length })).sort((a,b) => b.closed - a.closed);
+  $('#seller-summary').innerHTML = `<div class="seller-summary">${sellerData.map(item => `<div class="seller-line"><span class="seller-avatar">${avatar(item.name)}</span><div class="seller-info"><b>${item.name}</b><span>${item.active} leads ativos</span></div><strong>${money(item.closed)}</strong></div>`).join('')}</div>`;
+
+  const months = [{label:'Abr',month:3},{label:'Mai',month:4},{label:'Jun',month:5},{label:'Jul',month:6},{label:'Ago',month:7},{label:'Set',month:8}];
+  const values = months.map(item => leads.filter(lead => lead.stage === 'Ganho' && new Date(`${lead.date}T12:00`).getMonth() === item.month).reduce((sum, lead) => sum + Number(lead.value), 0));
+  const maxRevenue = Math.max(...values, 1);
+  $('#revenue-chart').innerHTML = months.map((item, index) => `<div class="revenue-bar"><i title="${money(values[index])}" style="height:${Math.max(9, values[index] / maxRevenue * 100)}%"></i><span>${item.label}</span></div>`).join('');
+
+  const sourceData = origins.map(origin => ({ origin, count: leads.filter(lead => lead.origin === origin).length })).filter(item => item.count).sort((a,b) => b.count - a.count).slice(0,5);
+  const maxOrigin = Math.max(...sourceData.map(item => item.count), 1);
+  $('#origin-list').innerHTML = sourceData.map(item => `<div class="origin-row"><label>${item.origin}</label><div class="bar-track">${fill(item.count / maxOrigin * 100)}</div><b>${item.count}</b></div>`).join('');
+}
+
+function chip(stage) { return `<span class="chip ${plain(stage)}">${stage}</span>`; }
+function renderLeads() {
+  const query = $('#search').value.trim().toLowerCase();
+  const stage = $('#stage-filter').value;
+  const seller = $('#seller-filter').value;
+  const visible = leads.filter(lead => (!query || lead.name.toLowerCase().includes(query) || lead.company.toLowerCase().includes(query)) && (!stage || lead.stage === stage) && (!seller || lead.seller === seller)).sort((a,b) => b.date.localeCompare(a.date));
+  $('#lead-rows').innerHTML = visible.map(lead => `<tr><td><b>${lead.name}</b><small>${lead.company}</small></td><td>${lead.seller}</td><td>${lead.product}</td><td>${lead.origin}</td><td>${chip(lead.stage)}</td><td>${money(lead.value)}</td><td>${new Date(`${lead.date}T12:00`).toLocaleDateString('pt-BR')}</td></tr>`).join('') || `<tr><td colspan="7">Nenhum lead encontrado.</td></tr>`;
+}
+
+function renderPipeline() {
+  const pipelineStages = stages.filter(stage => stage !== 'Ganho');
+  $('#pipeline-open-value').textContent = money(calc().pipeline);
+  $('#kanban').innerHTML = pipelineStages.map(stage => {
+    const list = leads.filter(lead => lead.stage === stage).sort((a,b) => Number(b.value) - Number(a.value));
+    return `<article class="kanban-column"><header><span>${stage}</span><span>${list.length}</span></header><div class="kanban-cards">${list.map(lead => `<article class="lead-card"><b>${lead.name}</b><span>${lead.company}</span><footer><span>${lead.seller}</span><b>${money(lead.value)}</b></footer></article>`).join('')}</div></article>`;
+  }).join('');
+}
+
+function renderSellers() {
+  $('#seller-rows').innerHTML = sellers.map(name => {
+    const sellerLeads = leads.filter(lead => lead.seller === name);
+    const active = sellerLeads.filter(lead => !['Ganho','Perdido'].includes(lead.stage));
+    const won = sellerLeads.filter(lead => lead.stage === 'Ganho');
+    const revenue = won.reduce((sum, lead) => sum + Number(lead.value), 0);
+    const pipeline = active.reduce((sum, lead) => sum + Number(lead.value), 0);
+    return `<tr><td><div class="seller-name"><span class="seller-avatar">${avatar(name)}</span><b>${name}</b></div></td><td>${active.length}</td><td>${won.length}</td><td>${(won.length / sellerLeads.length * 100).toFixed(1)}%</td><td>${money(pipeline)}</td><td>${money(revenue)}</td></tr>`;
+  }).join('');
+}
+
+function render() { renderDashboard(); renderLeads(); renderPipeline(); renderSellers(); }
+
+function setView(view) {
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.toggle('active', item.dataset.view === view));
+  document.querySelectorAll('.view').forEach(item => item.classList.toggle('active', item.id === view));
+  $('#page-title').textContent = { dashboard:'Dashboard', leads:'Leads', pipeline:'Pipeline', sellers:'Vendedores' }[view];
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+['stage-filter','seller-filter'].forEach(id => { const values = id === 'stage-filter' ? [...stages, 'Perdido'] : sellers; $("#" + id).insertAdjacentHTML('beforeend', values.map(value => `<option value="${value}">${value}</option>`).join('')); });
+document.querySelectorAll('.nav-item,[data-view="sellers"]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view)));
+$('#search').addEventListener('input', renderLeads);
+$('#stage-filter').addEventListener('change', renderLeads);
+$('#seller-filter').addEventListener('change', renderLeads);
+
+const leadDialog = $('#lead-modal');
+const form = $('#lead-form');
+function openLeadDialog() { form.reset(); form.elements.date.value = new Date().toISOString().slice(0,10); leadDialog.showModal(); form.elements.name.focus(); }
+document.querySelectorAll('.new-lead').forEach(button => button.addEventListener('click', openLeadDialog));
+leadDialog.querySelector('.dialog-close').addEventListener('click', () => leadDialog.close());
+leadDialog.querySelector('.cancel').addEventListener('click', () => leadDialog.close());
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const lead = Object.fromEntries(new FormData(form));
+  lead.id = Date.now(); lead.value = Number(lead.value);
+  leads.push(lead); localStorage.setItem(storageKey, JSON.stringify(leads));
+  render(); leadDialog.close(); setView('leads');
+  $('#toast').textContent = 'Lead cadastrado com sucesso.'; $('#toast').classList.add('show'); setTimeout(() => $('#toast').classList.remove('show'), 2600);
+});
+
+const welcome = $('#welcome');
+function closeWelcome() { welcome.close(); localStorage.setItem(welcomeKey, 'seen'); }
+welcome.querySelectorAll('.dialog-close,.welcome-button').forEach(button => button.addEventListener('click', closeWelcome));
+render();
+if (!localStorage.getItem(welcomeKey)) welcome.showModal();
