@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8f2">
+  <meta name="description" content="VETRA — case autoral de inteligência de processos e automação por Júlia Basilio Belucci.">
+  <title>VETRA — Process Intelligence Workspace</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/vetra-mark.svg">
+  <link rel="stylesheet" href="vetra.css?v=20260928">
+</head>
+<body>
+  <header class="site-header shell">
+    <a class="brand" href="#inicio" aria-label="VETRA, início"><img src="../assets/vetra-mark.svg" alt=""><span>VETRA</span></a>
+    <nav aria-label="Navegação"><a href="#case">O case</a><a href="#decisoes">Decisões</a><a href="app/">Explorar demonstração <span aria-hidden="true">→</span></a></nav>
+  </header>
+  <main>
+    <section class="hero shell" id="inicio">
+      <div class="eyebrow"><span></span>Process Intelligence Workspace</div>
+      <div class="hero-grid">
+        <div>
+          <h1>Veja como o processo <em>realmente</em> acontece.</h1>
+          <p>A VETRA transforma registros operacionais em uma visão clara dos fluxos reais de uma empresa, identificando desvios, retrabalho, esforço manual e oportunidades de automação.</p>
+          <div class="actions"><a class="button button-primary" href="app/">Explorar demonstração <span aria-hidden="true">→</span></a><a class="button button-secondary" href="#case">Entender o case</a></div>
+        </div>
+        <div class="hero-diagram" aria-label="Caminho de processo com pontos de análise">
+          <div class="diagram-label label-one">Registro</div><div class="diagram-label label-two">Desvio</div><div class="diagram-label label-three">Decisão</div><div class="diagram-label label-four">Melhoria</div>
+          <svg viewBox="0 0 620 460" aria-hidden="true"><path d="M22 394C120 370 76 245 201 238s84-166 212-154c107 10 70 118 184 128" fill="none" stroke="currentColor" stroke-width="2"/><path d="M22 394C120 370 76 245 201 238s84-166 212-154c107 10 70 118 184 128" fill="none" stroke="#b8ff3c" stroke-width="7" stroke-linecap="round" stroke-dasharray="16 18"/><circle cx="88" cy="369" r="10"/><circle cx="201" cy="238" r="10"/><circle cx="413" cy="84" r="10"/><circle cx="596" cy="212" r="10"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="question shell" id="case">
+      <div class="section-number">01</div>
+      <div><h2>Quanto custa manter um processo ineficiente?</h2><p>Nem todo problema operacional precisa ser resolvido comprando mais uma ferramenta.</p></div>
+      <div class="question-copy"><p>Em muitos casos, empresas acumulam sistemas diferentes para organizar tarefas, aprovações, controles, notificações e acompanhamentos que poderiam fazer parte de um fluxo interno integrado e desenvolvido para a própria operação.</p><strong>mais ferramentas <span>≠</span> melhores processos</strong><p class="statement">Automatizar não significa apenas executar tarefas automaticamente. Também significa eliminar controles paralelos, retrabalho e dependências desnecessárias.</p></div>
+    </section>
+
+    <section class="calculator-section" id="simulador">
+      <div class="shell calculator-grid">
+        <div><div class="section-number">02</div><h2>Quanto suas ferramentas podem custar por ano?</h2><p>Uma visualização ilustrativa para abrir a conversa sobre processo, escopo e necessidade real.</p></div>
+        <div class="calculator" aria-labelledby="calculator-title">
+          <h3 id="calculator-title">Simulador</h3>
+          <div class="calculator-inputs"><label>Número de usuários<input id="users" type="number" min="1" value="40"></label><label>Custo médio por usuário/mês<input id="cost" type="number" min="0" value="80"></label><label>Ferramentas para o mesmo processo<input id="tools" type="number" min="1" value="2"></label></div>
+          <div class="equation" aria-live="polite"><span id="users-display">40 usuários</span><i>×</i><span id="cost-display">R$ 80</span><i>×</i><span id="tools-display">2 ferramentas</span><i>×</i><span>12 meses</span></div>
+          <div class="calculator-result"><span>=</span><strong id="annual-cost">R$ 76.800 <small>/ ano</small></strong></div>
+          <button class="reset-values" type="button" id="reset-calculator">Alterar valores</button>
+          <p class="fine-print">Este cálculo é apenas ilustrativo e não considera implantação, manutenção ou diferenças funcionais entre soluções.</p>
+        </div>
+      </div>
+      <blockquote class="shell">faz sentido continuar pagando por várias ferramentas quando parte dessas necessidades pode ser resolvida dentro do próprio processo?</blockquote>
+    </section>
+
+    <section class="comparison shell">
+      <div class="section-number">03</div><h2>Comprar software <em>ou</em> desenvolver uma solução interna.</h2>
+      <div class="comparison-grid"><article><span>Ferramenta pronta</span><h3>Boa quando</h3><ul><li>o processo é comum;</li><li>existe uma solução consolidada;</li><li>implantação rápida é prioridade;</li><li>manutenção interna não faria sentido.</li></ul></article><article class="accent-card"><span>Solução interna</span><h3>Pode fazer sentido quando</h3><ul><li>o processo é muito específico;</li><li>várias ferramentas fazem partes do mesmo fluxo;</li><li>há trabalho manual entre sistemas;</li><li>integrações podem reduzir esforço operacional.</li></ul></article></div>
+      <p class="section-conclusion">Automação não é substituir todo software. É entender <strong>onde tecnologia realmente melhora o processo.</strong></p>
+    </section>
+
+    <section class="reality">
+      <div class="shell">
+        <div class="section-number">04</div><h2>O fluxo desenhado nem sempre é o <em>fluxo real.</em></h2>
+        <div class="flows"><article><h3>Processo esperado</h3><ol class="flow expected"><li>Solicitação</li><li>Validação</li><li>Aprovação</li><li>Execução</li><li>Conclusão</li></ol></article><article><h3>Processo real</h3><ol class="flow real"><li>Solicitação</li><li>Informação ausente</li><li>Correção manual</li><li>Aprovação</li><li>Atraso</li><li>Nova cobrança</li><li>Execução</li><li>Retrabalho</li><li>Conclusão</li></ol></article></div>
+        <p class="reality-note">A diferença entre esses dois caminhos representa tempo, custo, risco e esforço operacional. A VETRA foi criada para revelar essa diferença.</p>
+      </div>
+    </section>
+
+    <section class="analysis shell">
+      <div class="section-number">05</div><h2>O que a VETRA analisa.</h2>
+      <div class="analysis-grid"><article><span>01</span><h3>Caminhos reais</h3><p>Reconstrói como as operações realmente percorrem o processo.</p></article><article><span>02</span><h3>Desvios</h3><p>Identifica onde o fluxo saiu do caminho esperado.</p></article><article><span>03</span><h3>Esforço manual</h3><p>Mede intervenções, retrabalho e tempo consumido pela operação.</p></article><article><span>04</span><h3>Oportunidades</h3><p>Ajuda a priorizar o que deve ser corrigido, automatizado ou mantido sob responsabilidade humana.</p></article></div>
+    </section>
+
+    <section class="decisions" id="decisoes"><div class="shell"><div class="section-number">06</div><h2>Nem tudo deveria ser <em>automatizado.</em></h2><div class="decision-grid"><article><span>Automatizar</span><ul><li>Alta recorrência</li><li>Baixa complexidade</li><li>Regra previsível</li></ul><p>Ex.: validação de campos obrigatórios.</p></article><article><span>Automatizar parcialmente</span><ul><li>Previsível até determinado ponto</li><li>Com exceções</li></ul><p>Ex.: alerta e escalonamento automático de SLA.</p></article><article><span>Manter humano</span><ul><li>Baixa frequência</li><li>Alta criticidade</li><li>Necessidade de julgamento</li></ul><p>Ex.: tratamento de uma situação emergencial.</p></article></div><p class="decision-note">O objetivo da VETRA não é remover pessoas do processo. É evitar que pessoas gastem tempo onde uma regra poderia resolver.</p></div></section>
+
+    <section class="case shell"><div class="section-number">07</div><div class="case-grid"><div><h2>Case aplicado: operação de viagens corporativas</h2><p>Para demonstrar o funcionamento da VETRA, foi criado um cenário fictício baseado em uma operação de viagens corporativas.</p><ul class="case-list"><li>Aéreo</li><li>Hotel</li><li>Reembolso</li></ul></div><div class="case-note"><strong>Dados fictícios.</strong><p>Todos os dados, regras, SLAs, empresas, usuários e situações presentes nesta demonstração são fictícios. O projeto foi desenvolvido exclusivamente para demonstrar abordagem de análise de processos, regras de negócio, automação e melhoria contínua.</p></div></div></section>
+
+    <section class="demo shell"><div class="section-number">08</div><h2>O que você verá na demonstração.</h2><div class="demo-steps"><article><span>01</span><h3>Processo real</h3><p>Veja como as operações realmente percorreram o fluxo.</p></article><article><span>02</span><h3>Desvios</h3><p>Descubra interrupções, erros e retrabalho.</p></article><article><span>03</span><h3>Esforço operacional</h3><p>Entenda o trabalho manual gerado.</p></article><article><span>04</span><h3>Oportunidades</h3><p>Priorize melhorias por impacto.</p></article><article><span>05</span><h3>Simulação</h3><p>Compare o cenário atual com mudanças possíveis.</p></article><article><span>06</span><h3>Resultado</h3><p>Acompanhe o efeito das melhorias.</p></article></div></section>
+
+    <section class="author shell"><div><div class="section-number">Projeto autoral</div><h2>Projeto desenvolvido por Júlia Basilio Belucci</h2><p>Case autoral de Processos e Automação desenvolvido para demonstrar análise de fluxos, regras de negócio, identificação de gargalos, automação e melhoria contínua.</p><strong>Processos · Automação · Sistemas · Operações</strong></div><a href="https://jbelucci.github.io/portfolio-julia-basilio/">Ver portfólio completo <span aria-hidden="true">→</span></a></section>
+    <section class="final"><div class="shell"><h2>Agora veja o processo acontecendo.</h2><p>Explore uma operação fictícia, encontre os desvios e descubra quais melhorias gerariam maior impacto.</p><a class="button button-primary" href="app/">Entrar na VETRA <span aria-hidden="true">→</span></a></div></section>
+  </main>
+  <footer class="shell"><a class="brand" href="#inicio"><img src="../assets/vetra-mark.svg" alt=""><span>VETRA</span></a><span>Process Intelligence Workspace</span></footer>
+  <script src="vetra.js?v=20260928"></script>
+</body>
+</html>

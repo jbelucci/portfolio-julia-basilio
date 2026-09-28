@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title">
+  <title id="title">Marca VETRA</title>
+  <defs><linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d7ff30"/><stop offset="1" stop-color="#90bd18"/></linearGradient><linearGradient id="graphite" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#34373a"/><stop offset="1" stop-color="#101214"/></linearGradient></defs>
+  <path fill="url(#lime)" d="M12 18h27l38 56-15 24z"/>
+  <path fill="url(#graphite)" d="M55 29h27l26 42-35 32-15-24 25-23z"/>
+</svg>

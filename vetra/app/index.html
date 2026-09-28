@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8f2">
+  <title>VETRA — Demonstração</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/vetra-mark.svg">
+  <link rel="stylesheet" href="app.css?v=20260928">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-head"><a class="brand" href="../" aria-label="VETRA, voltar à apresentação"><img src="../../assets/vetra-mark.svg" alt=""><span>VETRA</span></a><button class="icon-button close-drawer" type="button" aria-label="Fechar menu">×</button></div>
+      <nav aria-label="Navegação da demonstração">
+        <button class="nav-item active" data-view="overview"><span>⌂</span>Visão geral</button>
+        <button class="nav-item" data-view="processes"><span>◇</span>Processos</button>
+        <button class="nav-item" data-view="deviations"><span>△</span>Desvios</button>
+        <button class="nav-item" data-view="opportunities"><span>↗</span>Oportunidades</button>
+        <button class="nav-item" data-view="simulation"><span>◒</span>Simulação</button>
+      </nav>
+      <div class="side-bottom"><a href="../"><span>←</span> Sobre a VETRA</a><a href="../../index.html"><span>←</span> Portfólio</a></div>
+    </aside>
+    <button class="overlay" type="button" aria-label="Fechar menu"></button>
+    <main class="main">
+      <header class="mobile-head"><a class="brand" href="../"><img src="../../assets/vetra-mark.svg" alt=""><span>VETRA</span></a><span id="mobile-title">Visão geral</span><button class="icon-button menu-button" type="button" aria-label="Abrir menu">☰</button></header>
+      <header class="topbar"><div><p class="eyebrow">Demonstração fictícia</p><h1 id="page-title">Visão geral</h1></div><label class="period">Últimos 30 dias <select aria-label="Período"><option>Últimos 30 dias</option><option>Últimos 90 dias</option></select></label></header>
+      <section class="view active" id="overview">
+        <div class="context"><span>Operação de viagens corporativas</span><p>Como os processos realmente aconteceram no período selecionado.</p></div>
+        <div class="metrics"><article><span>Processos analisados</span><strong>1.204</strong><small>registros operacionais</small></article><article><span>Conformidade</span><strong>68%</strong><small>no caminho esperado</small></article><article><span>Oportunidades</span><strong>17</strong><small>melhorias identificadas</small></article><article><span>Esforço manual</span><strong>142h</strong><small>intervenções estimadas</small></article></div>
+        <div class="grid overview-grid"><article class="panel process-panel"><div class="panel-head"><div><h2>Fluxo real do processo</h2><p>Aéreo · solicitação a emissão</p></div><button class="text-button" data-view="processes">Ver detalhes</button></div><div class="process-flow"><div class="node good">Solicitação</div><i></i><div class="node good">Validar dados</div><i></i><div class="node">Aprovar</div><i class="branch"></i><div class="node issue">Correção manual</div><i></i><div class="node good">Emitir</div></div><div class="legend"><span><i class="dot good"></i>caminho esperado</span><span><i class="dot issue"></i>intervenção manual</span></div></article><article class="panel attention-panel"><div class="panel-head"><div><h2>Pontos de atenção</h2><p>Maior impacto operacional</p></div></div><div class="attention"><span>01</span><div><b>Dados incompletos na solicitação</b><p>38% das intervenções manuais</p></div><strong>54h</strong></div><div class="attention"><span>02</span><div><b>Reaprovação por mudança de rota</b><p>19% dos desvios identificados</p></div><strong>31h</strong></div><div class="attention"><span>03</span><div><b>Conferência de política</b><p>Regra ainda verificada manualmente</p></div><strong>22h</strong></div></article></div>
+        <div class="grid lower-grid"><article class="panel"><div class="panel-head"><div><h2>Processos por tipo</h2></div></div><div class="bar-list"><div><span>Aéreo</span><i><b style="width:82%"></b></i><strong>602</strong></div><div><span>Hotel</span><i><b style="width:56%"></b></i><strong>402</strong></div><div><span>Reembolso</span><i><b style="width:31%"></b></i><strong>200</strong></div></div></article><article class="panel"><div class="panel-head"><div><h2>Próximo passo sugerido</h2></div></div><p class="suggestion">Validar campos obrigatórios antes da solicitação seguir para aprovação.</p><button class="action-button" data-view="opportunities">Ver oportunidade</button></article></div>
+      </section>
+      <section class="view" id="processes"><div class="view-intro"><h2>Processos reais</h2><p>Selecione um fluxo para observar o caminho percorrido, os desvios e as intervenções.</p></div><div class="process-tabs"><button class="active" data-process="Aéreo">Aéreo</button><button data-process="Hotel">Hotel</button><button data-process="Reembolso">Reembolso</button></div><article class="panel large-flow"><div class="panel-head"><div><h2 id="process-title">Aéreo</h2><p id="process-description">Solicitação a emissão de passagem.</p></div><span class="tag">Caminho real</span></div><div class="timeline" id="process-timeline"></div><div class="process-summary" id="process-summary"></div></article></section>
+      <section class="view" id="deviations"><div class="view-intro"><h2>Desvios</h2><p>Interrupções e caminhos fora do fluxo esperado na operação fictícia.</p></div><div class="deviation-list" id="deviation-list"></div></section>
+      <section class="view" id="opportunities"><div class="view-intro"><h2>Oportunidades</h2><p>Melhorias priorizadas por impacto operacional e previsibilidade da regra.</p></div><div class="opportunity-grid"><article class="opportunity high"><span>Prioridade alta</span><h3>Validar campos antes da aprovação</h3><p>Evita o retorno para correção manual quando dados obrigatórios estão ausentes.</p><footer><b>54h de esforço observadas</b><em>Automatizar</em></footer></article><article class="opportunity medium"><span>Prioridade média</span><h3>Escalonar SLA de aprovação</h3><p>Notifica responsáveis quando o prazo de aprovação se aproxima.</p><footer><b>31h de esforço observadas</b><em>Automatizar parcialmente</em></footer></article><article class="opportunity human"><span>Decisão humana</span><h3>Tratamento de exceção de viagem</h3><p>Mantém análise humana em situações de risco, urgência ou política excepcional.</p><footer><b>Alta criticidade</b><em>Manter humano</em></footer></article></div></section>
+      <section class="view" id="simulation"><div class="view-intro"><h2>Simulação</h2><p>Compare uma hipótese de melhoria com o cenário atual. Esta projeção é ilustrativa.</p></div><article class="panel simulation-card"><div><h3>Validação de campos obrigatórios</h3><p>Hipótese: impedir que solicitações incompletas avancem para aprovação.</p><label class="switch-label"><input id="simulation-switch" type="checkbox"><span></span>Aplicar melhoria na simulação</label></div><div class="simulation-results"><div><span>Intervenções manuais</span><strong id="manual-result">142h</strong></div><div><span>Conformidade</span><strong id="conformity-result">68%</strong></div><div><span>Tempo de ciclo</span><strong id="cycle-result">2,4 dias</strong></div></div></article><p class="disclaimer">A simulação mostra uma hipótese baseada nas regras fictícias do case; não representa previsão de resultado real.</p></section>
+    </main>
+  </div>
+  <script src="app.js?v=20260928"></script>
+</body>
+</html>
